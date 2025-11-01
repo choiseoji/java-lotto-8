@@ -12,6 +12,8 @@ public class Input {
 
             try {
                 String input = Console.readLine();
+                System.out.println();
+
                 int purchaseAmount = toInt(input);
                 LottoValidator.validateAmount(purchaseAmount);
 
