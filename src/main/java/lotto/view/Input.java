@@ -45,6 +45,23 @@ public class Input {
         }
     }
 
+    public int readBonusNumber() {
+        while (true) {
+            System.out.println("\n보너스 번호를 입력해 주세요.");
+
+            try {
+                String input = Console.readLine();
+
+                int bonusNumber = toInt(input);
+                LottoValidator.validateBonusNumbers(bonusNumber);
+
+                return bonusNumber;
+            } catch (LottoException le) {
+                System.out.println(le.getMessage());
+            }
+        }
+    }
+
     private int toInt(String input) {
         try {
             return Integer.parseInt(input);
