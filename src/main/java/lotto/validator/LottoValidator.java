@@ -35,4 +35,10 @@ public class LottoValidator {
             }
         }
     }
+
+    public static void validateBonusNumbers(int number) {
+        if (number < 1 || number > 45) {
+            throw new LottoException("번호는 1 ~ 45 사이여야 합니다.");
+        }
+    }
 }
