@@ -25,6 +25,6 @@ public class Output {
         String result = numbers.stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining(", "));
-        System.out.println("[" + result + "]");
+        System.out.println("[" + result + "]\n");
     }
 }
