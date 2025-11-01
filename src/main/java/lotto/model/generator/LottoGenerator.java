@@ -7,6 +7,7 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LottoGenerator {
 
@@ -21,8 +22,10 @@ public class LottoGenerator {
         List<Lotto> lottos = new ArrayList<>();
         for(int i = 0; i < size; i++) {
 
-            List<Integer> numbers = Randoms.pickUniqueNumbersInRange(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_SIZE);
-            Collections.sort(numbers);
+            List<Integer> numbers = Randoms.pickUniqueNumbersInRange(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER, LOTTO_SIZE)
+                    .stream()
+                    .sorted()
+                    .collect(Collectors.toList());
             lottos.add(new Lotto(numbers));
         }
         return new Lottos(lottos);
