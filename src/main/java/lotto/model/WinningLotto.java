@@ -10,4 +10,12 @@ public class WinningLotto {
         this.numbers = List.copyOf(numbers);
         this.bonusNumber = bonusNumber;
     }
+
+    public List<Integer> getNumbers() {
+        return this.numbers;
+    }
+
+    public int getBonusNumber() {
+        return this.bonusNumber;
+    }
 }
