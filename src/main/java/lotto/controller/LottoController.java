@@ -1,12 +1,16 @@
 package lotto.controller;
 
+import lotto.dto.RankResult;
 import lotto.model.Lottos;
+import lotto.model.Rank;
+import lotto.model.StatisticsCalculator;
 import lotto.model.WinningLotto;
 import lotto.model.generator.LottoGenerator;
 import lotto.view.Input;
 import lotto.view.Output;
 
 import java.util.List;
+import java.util.Map;
 
 public class LottoController {
 
@@ -22,6 +26,14 @@ public class LottoController {
         Lottos lottos = buyLotto();
         WinningLotto winningLotto = getWinningLotto();
 
+        StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
+        statisticsCalculator.calculateStatistics(lottos, winningLotto);
+
+        Map<Rank, Integer> rankCount = statisticsCalculator.getRankCount();
+        double profitRate = statisticsCalculator.getProfitRate(lottos.count());
+
+        RankResult rankResult = RankResult.toRankResult(rankCount, profitRate);
+        output.printWinningStatistics(rankResult);
     }
 
     private Lottos buyLotto() {
