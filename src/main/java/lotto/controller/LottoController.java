@@ -26,11 +26,8 @@ public class LottoController {
         Lottos lottos = buyLotto();
         WinningLotto winningLotto = getWinningLotto();
 
-        StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
-        statisticsCalculator.calculateStatistics(lottos, winningLotto);
-
-        Map<Rank, Integer> rankCount = statisticsCalculator.getRankCount();
-        double profitRate = statisticsCalculator.getProfitRate(lottos.count());
+        Map<Rank, Integer> rankCount = lottos.getRankCount(winningLotto);
+        double profitRate = StatisticsCalculator.getProfitRate(rankCount, lottos.count());
 
         RankResult rankResult = RankResult.toRankResult(rankCount, profitRate);
         output.printWinningStatistics(rankResult);

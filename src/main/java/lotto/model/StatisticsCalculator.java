@@ -1,72 +1,29 @@
 package lotto.model;
 
-
-import lotto.Lotto;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class StatisticsCalculator {
 
-    private long totalPrize;
-    private Map<Rank, Integer> rankCount = new HashMap<>();
-
-    public StatisticsCalculator() {
-        this.totalPrize = 0;
-        for (Rank rank : Rank.values()) {
-            rankCount.put(rank, 0);
-        }
+    public static double getProfitRate(Map<Rank, Integer> rankCount, int lottoCount) {
+        int totalPrize = calculateTotalPrize(rankCount);
+        return calculateProfitRate(lottoCount, totalPrize);
     }
 
-    public void calculateStatistics(Lottos lottos, WinningLotto winningLotto) {
+    private static int calculateTotalPrize(Map<Rank, Integer> rankCount) {
+        int totalPrize = 0;
 
-        for(int i = 0; i < lottos.count(); i++) {
-            Lotto lotto = lottos.getLotto(i);
+        for (Map.Entry<Rank, Integer> entry : rankCount.entrySet()) {
+            Rank rank = entry.getKey();
+            int count = entry.getValue();
 
-            int numbersMatchCount = countMatchNumbers(lotto, winningLotto.getNumbers());
-            int bonusMatchCount = countMatchBonus(lotto, winningLotto.getBonusNumber());
-
-            Rank rank = getRank(numbersMatchCount, bonusMatchCount);
-            if (rank == null)
-                continue;
-
-            int prevCount = rankCount.get(rank);
-            rankCount.put(rank, prevCount + 1);
-
-            totalPrize += rank.getPrize();
+            totalPrize += rank.getPrize() * count;
         }
+
+        return totalPrize;
     }
 
-    public double getProfitRate(int amount) {
-        double rate =  (double) totalPrize / (amount * LottoInfo.price()) * 100;
+    private static double calculateProfitRate(int lottoCount, int totalPrize) {
+        double rate = (double) totalPrize / (lottoCount * LottoInfo.price()) * 100;
         return Math.round(rate * 100) / 100.0;
-    }
-
-    private int countMatchNumbers(Lotto lotto, List<Integer> winningNumbers) {
-        return (int) lotto.getNumbers().stream()
-                .filter(winningNumbers::contains)
-                .count();
-    }
-
-    private int countMatchBonus(Lotto lotto, int bonus) {
-        if (lotto.getNumbers().contains(bonus))
-            return 1;
-        return 0;
-    }
-
-    private Rank getRank(int numbersMatchCount, int bonusMatchCount) {
-        return Arrays.stream(Rank.values())
-                .filter(rank -> rank.getMatchCount() == numbersMatchCount)
-                .filter(rank ->
-                        rank.getMatchCount() != 5 || rank.getBonusMatchCount() == bonusMatchCount
-                )
-                .findFirst()
-                .orElse(null);
-    }
-
-    public Map<Rank, Integer> getRankCount() {
-        return this.rankCount;
     }
 }
