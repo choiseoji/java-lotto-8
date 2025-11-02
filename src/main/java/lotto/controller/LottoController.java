@@ -43,7 +43,7 @@ public class LottoController {
 
     private WinningLotto getWinningLotto() {
         List<Integer> winningNumbers = input.readWinningNumbers();
-        int bonusNumber = input.readBonusNumber();
+        int bonusNumber = input.readBonusNumber(winningNumbers);
 
         return new WinningLotto(winningNumbers, bonusNumber);
     }

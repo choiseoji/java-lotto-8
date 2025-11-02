@@ -44,7 +44,7 @@ public class Input {
         }
     }
 
-    public int readBonusNumber() {
+    public int readBonusNumber(List<Integer> winningNumbers) {
         while (true) {
             System.out.println("\n보너스 번호를 입력해 주세요.");
 
@@ -52,7 +52,7 @@ public class Input {
                 String input = Console.readLine();
 
                 int bonusNumber = toInt(input);
-                LottoValidator.validateBonusNumbers(bonusNumber);
+                LottoValidator.validateBonusNumber(bonusNumber, winningNumbers);
 
                 return bonusNumber;
             } catch (IllegalArgumentException e) {

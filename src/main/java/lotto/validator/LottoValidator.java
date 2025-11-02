@@ -28,11 +28,18 @@ public class LottoValidator {
         }
 
         for (int num : numbers) {
-            validateBonusNumbers(num);
+            validateNumber(num);
         }
     }
 
-    public static void validateBonusNumbers(int number) {
+    public static void validateBonusNumber(int bonusNumber, List<Integer> winningNumbers) {
+        validateNumber(bonusNumber);
+
+        if (winningNumbers.contains(bonusNumber))
+            throw new IllegalArgumentException("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+    }
+
+    private static void validateNumber(int number) {
         if (number < LottoInfo.min() || number > LottoInfo.max()) {
             throw new IllegalArgumentException("[ERROR] 번호는 " + LottoInfo.min() + " ~ " + LottoInfo.max() + " 사이여야 합니다.");
         }
