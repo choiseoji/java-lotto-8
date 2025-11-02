@@ -40,7 +40,7 @@ public class StatisticsCalculator {
     }
 
     public double getProfitRate(int amount) {
-        double rate =  (double) totalPrize / (amount * 1000) * 100;
+        double rate =  (double) totalPrize / (amount * LottoInfo.price()) * 100;
         return Math.round(rate * 100) / 100.0;
     }
 
