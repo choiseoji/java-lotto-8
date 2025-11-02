@@ -1,5 +1,7 @@
 package lotto;
 
+import lotto.model.Rank;
+import lotto.model.WinningLotto;
 import lotto.validator.LottoValidator;
 
 import java.util.ArrayList;
@@ -13,6 +15,18 @@ public class Lotto {
         LottoValidator.validateNumbers(numbers);
 
         this.numbers = numbers;
+    }
+
+    public Rank matchRank(WinningLotto winningLotto) {
+        List<Integer> winningNumbers = winningLotto.getNumbers();
+        int bonusNumber = winningLotto.getBonusNumber();
+
+        int matchCount = (int) numbers.stream()
+                .filter(winningNumbers::contains)
+                .count();
+        boolean bonusMatch = numbers.contains(bonusNumber);
+
+        return Rank.of(matchCount, bonusMatch);
     }
 
     private void validate(List<Integer> numbers) {
