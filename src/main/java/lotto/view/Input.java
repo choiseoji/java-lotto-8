@@ -34,7 +34,7 @@ public class Input {
                 String input = Console.readLine();
 
                 List<Integer> numbers = parseNumbers(input);
-                LottoValidator.validateWinningNumbers(numbers);
+                LottoValidator.validateNumbers(numbers);
 
                 return numbers;
 

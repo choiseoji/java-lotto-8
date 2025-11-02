@@ -17,9 +17,9 @@ public class LottoValidator {
         }
     }
 
-    public static void validateWinningNumbers(List<Integer> numbers) {
+    public static void validateNumbers(List<Integer> numbers) {
         if (numbers.size() != LottoInfo.size()) {
-            throw new IllegalArgumentException("[ERROR] 당첨 번호는 " + LottoInfo.size() + "개여야 합니다.");
+            throw new IllegalArgumentException("[ERROR] 로또 번호는 " + LottoInfo.size() + "개여야 합니다.");
         }
 
         Set<Integer> unique = new HashSet<>(numbers);
