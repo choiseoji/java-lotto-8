@@ -1,6 +1,6 @@
 package lotto.model.generator;
 
-import lotto.Lotto;
+import lotto.model.Lotto;
 import lotto.model.LottoInfo;
 import lotto.model.Lottos;
 import camp.nextstep.edu.missionutils.Randoms;
