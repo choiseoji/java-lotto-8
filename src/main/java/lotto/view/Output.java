@@ -1,11 +1,9 @@
 package lotto.view;
 
 import lotto.Lotto;
-import lotto.dto.OneRankResult;
 import lotto.dto.RankResult;
 import lotto.model.Lottos;
 
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +12,7 @@ public class Output {
     public void printLottosNumbers(Lottos lottos) {
         int lottoCount = lottos.count();
         printLottoCount(lottoCount);
+
         for (int i = 0; i < lottoCount; i++) {
             printOneLottoNumbers(lottos.getLotto(i));
         }
@@ -22,19 +21,19 @@ public class Output {
     public void printWinningStatistics(RankResult rankResult) {
         System.out.println("\n당첨 통계\n" + "---");
 
-        for (OneRankResult oneRankResult : rankResult.oneRankResults()) {
-            String formattedPrize = String.format("%,d", oneRankResult.prize());
+        rankResult.oneRankResults().forEach(r ->
+                System.out.println(r.displayName() + " (" + formatPrize(r.prize()) + "원) - " + r.count() + "개")
+        );
 
-            System.out.println(
-                    oneRankResult.displayName()
-                            + " (" + formattedPrize + "원) - "
-                            + oneRankResult.count() + "개"
-            );
-        }
+        System.out.println("총 수익률은 " + formatProfitRate(rankResult.profitRate()) + "%입니다.");
+    }
 
-        DecimalFormat df = new DecimalFormat("#,##0.0");
-        String formattedRate = df.format(rankResult.profitRate());
-        System.out.println("총 수익률은 " + formattedRate + "%입니다.");
+    private String formatPrize(int prize) {
+        return String.format("%,d", prize);
+    }
+
+    private String formatProfitRate(double rate) {
+        return String.format("%,.1f", rate);
     }
 
     private void printLottoCount(int count) {
