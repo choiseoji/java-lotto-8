@@ -1,7 +1,6 @@
 package lotto.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import lotto.exception.LottoException;
 import lotto.validator.LottoValidator;
 
 import java.util.Arrays;
@@ -21,8 +20,8 @@ public class Input {
 
                 return purchaseAmount;
 
-            } catch (LottoException le) {
-                System.out.println(le.getMessage());
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -39,8 +38,8 @@ public class Input {
 
                 return numbers;
 
-            } catch (LottoException le) {
-                System.out.println(le.getMessage());
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -56,8 +55,8 @@ public class Input {
                 LottoValidator.validateBonusNumbers(bonusNumber);
 
                 return bonusNumber;
-            } catch (LottoException le) {
-                System.out.println(le.getMessage());
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -66,7 +65,7 @@ public class Input {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException ne) {
-            throw new LottoException("구입 금액은 숫자여야 합니다.");
+            throw new IllegalArgumentException("[ERROR] 구입 금액은 숫자여야 합니다.");
         }
     }
 
